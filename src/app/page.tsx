@@ -1,14 +1,11 @@
 import { Hero } from "@/components/Hero";
-import { ProjectsSection } from "@/components/ProjectsSection";
-import { SkillsSection } from "@/components/SkillsSection";
+import { ExperienceSection } from "@/components/ExperienceSection";
 
 export default function Home() {
   return (
     <main className="min-h-screen">
       <Hero />
-      <SkillsSection />
-      <ProjectsSection />
-      
+      <ExperienceSection />
       {/* Contact Section Placeholder */}
       <section id="contact" className="py-20">
         <div className="container mx-auto px-4 md:px-6 text-center">
@@ -17,7 +14,7 @@ export default function Home() {
             Interested in working together? Let&apos;s talk.
           </p>
           <a
-            href="mailto:contact@example.com"
+            href="mailto:ricci.mirko94@gmail.com"
             className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-primary text-primary-foreground font-medium transition-transform hover:scale-105"
           >
             Say Hello

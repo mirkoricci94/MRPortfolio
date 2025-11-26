@@ -4,9 +4,15 @@ import React, { useEffect, useRef, useState } from 'react';
 
 export function Rocket() {
   const rocketRef = useRef<HTMLDivElement>(null);
-  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted || !rocketRef.current) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       if (!rocketRef.current) return;
       
@@ -17,16 +23,17 @@ export function Rocket() {
       const deltaX = e.clientX - centerX;
       const deltaY = e.clientY - centerY;
       
-      // Calculate rotation angles (limited range for smooth effect)
-      const rotateY = (deltaX / window.innerWidth) * 30; // Max 30deg
-      const rotateX = -(deltaY / window.innerHeight) * 30; // Max 30deg
+      // Calculate rotation angles with much larger range (60 degrees)
+      const rotateY = (deltaX / window.innerWidth) * 60;
+      const rotateX = -(deltaY / window.innerHeight) * 60;
       
-      setRotation({ x: rotateX, y: rotateY });
+      // Directly manipulate DOM for better performance
+      rocketRef.current.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     };
 
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [isMounted]);
 
   return (
     <div className="cartoon-rocket-container">
@@ -34,8 +41,8 @@ export function Rocket() {
         ref={rocketRef}
         className="cartoon-rocket-wrapper"
         style={{
-          transform: `translateY(0px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
-          transition: 'transform 0.3s ease-out'
+          transition: 'transform 0.2s ease-out',
+          transformStyle: 'preserve-3d'
         }}
       >
         {/* Main Rocket */}

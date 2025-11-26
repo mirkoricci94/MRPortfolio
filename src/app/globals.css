@@ -62,7 +62,7 @@ body {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  animation: cartoon-float 4s ease-in-out infinite;
+  /* Animation removed - controlled by JavaScript mouse tracking */
 }
 
 @keyframes cartoon-float {
@@ -85,39 +85,63 @@ body {
   width: 90px;
   height: 220px;
   filter: drop-shadow(0 15px 35px rgba(239, 68, 68, 0.3));
+  z-index: 2;
 }
 
-/* Nose Cone - Rounded Cartoon Style */
-.rocket-nose-cartoon {
+/* Pointed Nose Cone */
+.rocket-nose-pointed {
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 70px;
-  height: 70px;
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  box-shadow:
-    inset -8px -8px 15px rgba(0, 0, 0, 0.2),
-    inset 8px 8px 15px rgba(255, 255, 255, 0.1),
-    0 5px 15px rgba(239, 68, 68, 0.4);
+  width: 0;
+  height: 0;
+  border-left: 45px solid transparent;
+  border-right: 45px solid transparent;
+  border-bottom: 80px solid #ef4444;
+  filter: drop-shadow(0 5px 15px rgba(239, 68, 68, 0.5));
+  z-index: 3;
+}
+
+.rocket-nose-pointed::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: -35px;
+  width: 0;
+  height: 0;
+  border-left: 35px solid transparent;
+  border-right: 35px solid transparent;
+  border-bottom: 55px solid #dc2626;
+}
+
+.rocket-nose-pointed::after {
+  content: '';
+  position: absolute;
+  top: 30px;
+  left: -25px;
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 35px solid #b91c1c;
 }
 
 .nose-highlight {
   position: absolute;
-  top: 15px;
-  left: 15px;
-  width: 20px;
-  height: 25px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), transparent);
-  border-radius: 50%;
-  filter: blur(3px);
+  top: 25px;
+  left: -15px;
+  width: 15px;
+  height: 30px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), transparent);
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  filter: blur(2px);
 }
 
 /* Main Body - White with Glossy Finish */
 .rocket-body-cartoon {
   position: absolute;
-  top: 60px;
+  top: 70px;
   left: 0;
   width: 90px;
   height: 120px;
@@ -129,6 +153,7 @@ body {
     0 8px 25px rgba(0, 0, 0, 0.15);
   position: relative;
   overflow: hidden;
+  z-index: 3;
 }
 
 .rocket-body-cartoon::before {
@@ -301,74 +326,143 @@ body {
   }
 }
 
-/* Cartoon Flames */
-.cartoon-flames {
+/* Realistic Flames */
+.realistic-flames {
   position: absolute;
-  bottom: -12px;
+  bottom: -15px;
   left: 50%;
   transform: translateX(-50%);
-  width: 70px;
-  height: 90px;
+  width: 65px;
+  height: 110px;
+  filter: drop-shadow(0 0 15px rgba(251, 146, 60, 0.6));
+  z-index: 1;
 }
 
-.cartoon-flame {
+.flame-layer {
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
 }
 
-@keyframes cartoon-flame-dance {
+@keyframes realistic-flame-flicker {
 
   0%,
   100% {
     transform: translateX(-50%) scaleY(1) scaleX(1);
-    opacity: 0.9;
-  }
-
-  25% {
-    transform: translateX(-50%) scaleY(1.1) scaleX(0.95);
     opacity: 1;
   }
 
+  25% {
+    transform: translateX(-50%) scaleY(1.08) scaleX(0.96);
+    opacity: 0.95;
+  }
+
   50% {
-    transform: translateX(-50%) scaleY(0.95) scaleX(1.05);
-    opacity: 0.85;
+    transform: translateX(-50%) scaleY(0.94) scaleX(1.04);
+    opacity: 0.9;
   }
 
   75% {
-    transform: translateX(-50%) scaleY(1.05) scaleX(0.98);
-    opacity: 0.95;
+    transform: translateX(-50%) scaleY(1.02) scaleX(0.98);
+    opacity: 0.97;
   }
 }
 
-.flame-outer-cartoon {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to top, #f97316, #fb923c, #fbbf24);
-  opacity: 0.7;
-  filter: blur(6px);
-  animation: cartoon-flame-dance 0.15s ease-in-out infinite;
+.flame-base {
+  width: 65px;
+  height: 110px;
+  background: linear-gradient(to top,
+      #dc2626 0%,
+      #f97316 25%,
+      #fb923c 50%,
+      #fbbf24 75%,
+      #fde047 100%);
+  clip-path: polygon(50% 0%,
+      35% 15%,
+      40% 30%,
+      30% 45%,
+      35% 60%,
+      25% 75%,
+      20% 90%,
+      0% 100%,
+      50% 95%,
+      100% 100%,
+      80% 90%,
+      75% 75%,
+      65% 60%,
+      70% 45%,
+      60% 30%,
+      65% 15%);
+  opacity: 0.9;
+  animation: realistic-flame-flicker 0.12s ease-in-out infinite;
 }
 
-.flame-mid-cartoon {
-  width: 75%;
-  height: 80%;
-  background: linear-gradient(to top, #fbbf24, #fcd34d, #fde047);
-  opacity: 0.85;
-  filter: blur(3px);
-  animation: cartoon-flame-dance 0.12s ease-in-out infinite 0.05s;
+.flame-mid {
+  width: 50px;
+  height: 85px;
+  background: linear-gradient(to top,
+      #f97316 0%,
+      #fb923c 30%,
+      #fbbf24 60%,
+      #fde047 100%);
+  clip-path: polygon(50% 0%,
+      40% 20%,
+      35% 40%,
+      30% 60%,
+      25% 80%,
+      15% 100%,
+      50% 90%,
+      85% 100%,
+      75% 80%,
+      70% 60%,
+      65% 40%,
+      60% 20%);
+  opacity: 0.95;
+  animation: realistic-flame-flicker 0.1s ease-in-out infinite 0.04s;
 }
 
-.flame-inner-cartoon {
-  width: 50%;
-  height: 60%;
-  background: linear-gradient(to top, #fde047, #fef08a, #ffffff);
+.flame-tip {
+  width: 35px;
+  height: 60px;
+  background: linear-gradient(to top,
+      #fbbf24 0%,
+      #fde047 40%,
+      #fef08a 70%,
+      #fefce8 100%);
+  clip-path: polygon(50% 0%,
+      45% 25%,
+      40% 50%,
+      30% 75%,
+      20% 100%,
+      50% 85%,
+      80% 100%,
+      70% 75%,
+      60% 50%,
+      55% 25%);
+  opacity: 1;
+  animation: realistic-flame-flicker 0.08s ease-in-out infinite 0.08s;
+}
+
+.flame-core {
+  width: 20px;
+  height: 40px;
+  background: linear-gradient(to top,
+      #fef08a 0%,
+      #fefce8 50%,
+      #ffffff 100%);
+  clip-path: polygon(50% 0%,
+      40% 30%,
+      30% 60%,
+      25% 100%,
+      50% 80%,
+      75% 100%,
+      70% 60%,
+      60% 30%);
   opacity: 1;
   filter: blur(1px);
-  box-shadow: 0 0 25px #fbbf24;
-  animation: cartoon-flame-dance 0.1s ease-in-out infinite 0.1s;
+  box-shadow: 0 0 20px rgba(254, 240, 138, 0.8);
+  animation: realistic-flame-flicker 0.06s ease-in-out infinite 0.12s;
 }
 
 /* Sparkles */

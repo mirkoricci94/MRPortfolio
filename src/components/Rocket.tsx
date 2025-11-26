@@ -28,7 +28,7 @@ export function Rocket() {
       const rotateX = -(deltaY / window.innerHeight) * 60;
       
       // Directly manipulate DOM for better performance
-      rocketRef.current.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+     // rocketRef.current.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     };
 
     window.addEventListener('mousemove', handleMouseMove);

@@ -40,10 +40,10 @@ export function Hero() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-300">
               <Link
-                href="#projects"
+                href="#experience"
                 className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-primary text-primary-foreground font-medium transition-transform hover:scale-105 active:scale-95"
               >
-                {language === 'it' ? 'Vedi Lavori' : 'View Work'}
+                {language === 'it' ? 'Vedi Esperienza' : 'View Experiences'}
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
               <Link

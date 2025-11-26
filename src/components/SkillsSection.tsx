@@ -1,6 +1,6 @@
-"use client";
-
 import { Code2, Database, Layout, Smartphone, Terminal, Wrench } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/lib/translations";
 
 const skillCategories = [
   {
@@ -22,15 +22,18 @@ const skillCategories = [
 ];
 
 export function SkillsSection() {
+  const { language } = useLanguage();
+  const t = translations[language].skills;
+
   return (
     <section id="skills" className="py-20 bg-background">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col items-center text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4">
-            Technical Skills
+            {t.title}
           </h2>
           <p className="text-muted-foreground max-w-2xl">
-            My technical toolbelt. I'm constantly learning and exploring new technologies to build better software.
+            {t.description}
           </p>
         </div>
 

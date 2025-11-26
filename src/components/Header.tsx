@@ -91,7 +91,7 @@ export function Header() {
               <Link href="https://github.com" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
                 <Github className="w-6 h-6" />
               </Link>
-              <Link href="https://linkedin.com" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link href="https://www.linkedin.com/in/mirko-ricci-032935165/" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
                 <Linkedin className="w-6 h-6" />
               </Link>
             </div>

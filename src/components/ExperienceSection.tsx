@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { Briefcase, Calendar, MapPin } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/lib/translations";
 
 interface Experience {
   id: number;
@@ -16,11 +18,14 @@ interface Experience {
 export function ExperienceSection() {
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [loading, setLoading] = useState(true);
+  const { language } = useLanguage();
+  const t = translations[language].experience;
 
   useEffect(() => {
     async function fetchExperiences() {
+      setLoading(true);
       try {
-        const res = await fetch("/api/experiences");
+        const res = await fetch(`/api/experiences?lang=${language}`);
         if (!res.ok) throw new Error("Failed to fetch experiences");
         const data = await res.json();
         setExperiences(data);
@@ -31,7 +36,7 @@ export function ExperienceSection() {
       }
     }
     fetchExperiences();
-  }, []);
+  }, [language]);
 
   if (loading) {
     return (
@@ -48,10 +53,10 @@ export function ExperienceSection() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col items-center text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4">
-            Professional Experience
+            {t.title}
           </h2>
           <p className="text-muted-foreground max-w-2xl">
-            My journey in software development, from academic foundations to leading complex projects.
+            {t.description}
           </p>
         </div>
 

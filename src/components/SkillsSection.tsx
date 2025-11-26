@@ -17,7 +17,7 @@ const skillCategories = [
   {
     title: "Tools & DevOps",
     icon: <Wrench className="w-6 h-6 text-primary" />,
-    skills: ["Git", "Docker", "VS Code", "Webstorm","Agile","Jira","Trello","Asana","Slack","Figma","Framer Motion"],
+    skills: ["Git", "Docker", "VS Code", "Webstorm","Agile","Jira","Trello","Asana","Slack","Figma"],
   },
 ];
 

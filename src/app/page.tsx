@@ -23,7 +23,7 @@ export default function Home() {
               Interested in working together? Let&apos;s talk.
             </p>
             <a
-              href="mailto:contact@example.com"
+              href="mailto:ricci.mirko94@gmail.com"
               className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-primary text-primary-foreground font-medium transition-transform hover:scale-105"
             >
               Say Hello
